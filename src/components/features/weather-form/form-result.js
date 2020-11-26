@@ -35,19 +35,19 @@ const FormResult = ({
 FormResult.propTypes = {
   city: PropTypes.string,
   country: PropTypes.string,
-  temperature: PropTypes.string,
-  humidity: PropTypes.string,
+  temperature: PropTypes.number,
+  humidity: PropTypes.number,
   description: PropTypes.string,
   error: PropTypes.string,
 };
 
 FormResult.defaultProps = {
-  city: '',
-  country: '',
-  temperature: '',
-  humidity: '',
-  description: '',
-  error: '',
+  city: undefined,
+  country: undefined,
+  temperature: undefined,
+  humidity: undefined,
+  description: undefined,
+  error: undefined,
 };
 
 export default FormResult;

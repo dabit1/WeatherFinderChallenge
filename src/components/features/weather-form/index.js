@@ -6,38 +6,47 @@ import FormResult from './form-result';
 
 const WeatherForm = ({ apiKey }) => {
   const [weatherData, setWeatherData] = React.useState({
-    temperature: '',
-    city: '',
-    country: '',
-    humidity: '',
-    description: '',
-    error: '',
+    temperature: undefined,
+    city: undefined,
+    country: undefined,
+    humidity: undefined,
+    description: undefined,
+    error: undefined,
   });
+
+  const showError = (error) => {
+    setWeatherData({
+      temperature: undefined,
+      city: undefined,
+      country: undefined,
+      humidity: undefined,
+      description: undefined,
+      error,
+    });
+  };
 
   const getWeather = async (e) => {
     e.preventDefault();
-    const city = e.target.elements.city.value || 'Madrid';
-    const country = e.target.elements.country.value || 'es';
-    const data = await fetchWeather(city, country, apiKey);
+    const city = e.target.elements.city.value;
+    const country = e.target.elements.country.value;
 
     if (city && country) {
-      setWeatherData({
-        temperature: data.main.temp,
-        city: data.name,
-        country: data.sys.country,
-        humidity: data.main.humidity,
-        description: data.weather[0].description,
-        error: '',
-      });
+      try {
+        const data = await fetchWeather(city, country, apiKey);
+
+        setWeatherData({
+          temperature: data.main.temp,
+          city: data.name,
+          country: data.sys.country,
+          humidity: data.main.humidity,
+          description: data.weather[0].description,
+          error: undefined,
+        });
+      } catch (e) {
+        showError('Sorry, we did not find this city and/or country.');
+      }
     } else {
-      setWeatherData({
-        temperature: undefined,
-        city: undefined,
-        country: undefined,
-        humidity: undefined,
-        description: undefined,
-        error: 'Please enter the values.',
-      });
+      showError('Please enter the values.');
     }
   };
 

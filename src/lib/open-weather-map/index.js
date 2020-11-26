@@ -3,5 +3,10 @@ export const fetchWeather = async (city, country, apiKey) => {
     `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`
   );
 
-  return await res.json();
+  const json = await res.json();
+  if (json.cod === '404') {
+    throw new Error('Resource not found');
+  }
+
+  return json;
 };
