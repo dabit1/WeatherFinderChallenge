@@ -27,7 +27,11 @@ const FormResult = ({
       {description && (
         <FormResultValue title="Conditions"> {description} </FormResultValue>
       )}
-      {error && <p className="weather__error">{error}</p>}
+      {error && (
+        <p data-testid="form-result-comp-error" className="weather__error">
+          {error}
+        </p>
+      )}
     </div>
   );
 };
