@@ -31,7 +31,7 @@ const WeatherForm = ({ onRequestWeather }) => {
 
     if (city && country) {
       try {
-        const data = await onRequestWeather();
+        const data = await onRequestWeather(city, country);
 
         setWeatherData({
           temperature: data.main.temp,
