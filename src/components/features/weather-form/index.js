@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchWeather } from '../../../lib/open-weather-map';
 import Form from './form';
 import FormResult from './form-result';
 
-const WeatherForm = ({ apiKey }) => {
+const WeatherForm = ({ onRequestWeather }) => {
   const [weatherData, setWeatherData] = React.useState({
     temperature: undefined,
     city: undefined,
@@ -32,7 +31,7 @@ const WeatherForm = ({ apiKey }) => {
 
     if (city && country) {
       try {
-        const data = await fetchWeather(city, country, apiKey);
+        const data = await onRequestWeather();
 
         setWeatherData({
           temperature: data.main.temp,
@@ -59,7 +58,7 @@ const WeatherForm = ({ apiKey }) => {
 };
 
 WeatherForm.propTypes = {
-  apiKey: PropTypes.string.isRequired,
+  onRequestWeather: PropTypes.func.isRequired,
 };
 
 export default WeatherForm;
